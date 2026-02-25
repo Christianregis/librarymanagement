@@ -17,7 +17,7 @@ public class Emprunt {
     private LocalDate dateEmprunt;
     private LocalDate dateRetourPrevue;
     private LocalDate dateRetourEffective;
-    private Double penalites;
+    private Double penalites = 0.0;
     private String status;
 
     @JsonIgnore

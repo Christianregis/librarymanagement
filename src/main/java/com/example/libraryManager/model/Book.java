@@ -2,6 +2,7 @@ package com.example.libraryManager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Book {
     private Long id;
     @NotBlank(message = "Le titre ne doit pas etre null !")
     @Column(nullable = false)
+    @Max(value = 50, message = "La taille du titre ne doit depasser 50")
     private String title;
     private String auteur;
 
@@ -38,5 +40,4 @@ public class Book {
     @JsonIgnore
     @OneToMany(mappedBy = "book")
     private List<Emprunt> emprunts;
-
 }

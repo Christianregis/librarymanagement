@@ -5,6 +5,10 @@ import com.example.libraryManager.model.Category;
 import com.example.libraryManager.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class CategoryService {
     public final CategoryRepository categoryRepository;
@@ -33,5 +37,15 @@ public class CategoryService {
             return true;
         }
         return false;
+    }
+
+    public List<CategoryDto> getAllCategories(){
+        return categoryRepository.findAll().stream().map(
+                Category::toDto
+        ).collect(Collectors.toList());
+    }
+
+    public Optional<Category> getCategoryById(Long id){
+        return categoryRepository.findById(id);
     }
 }

@@ -23,12 +23,10 @@ public class Book {
     private Long id;
     @NotBlank(message = "Le titre ne doit pas etre null !")
     @Column(nullable = false)
-    @Max(value = 50, message = "La taille du titre ne doit depasser 50")
     private String title;
     private String auteur;
 
     @NotNull(message = "L'ISBN ne doit pas etre nulle !")
-    @UniqueElements(message = "Cet ISBN est deja present pour un autre livre !")
     private String isbn;
     private String status = "DISPONIBLE";
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -43,6 +41,6 @@ public class Book {
     private List<Emprunt> emprunts;
 
     public BookDto toDto(){
-        return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId());
+        return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId(),getStatus());
     }
 }

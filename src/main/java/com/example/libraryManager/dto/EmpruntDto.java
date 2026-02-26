@@ -12,11 +12,15 @@ public class EmpruntDto {
     private LocalDate dateRetourPrevue;
     private LocalDate dateRetourEffective;
     private String status;
+    private Long bookId;
+    private Long userId;
 
-    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status){
+    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status, Long bookId, Long userId){
         this.dateEmprunt = dateEmprunt;
         this.dateRetourPrevue = dateRetourPrevue;
         this.dateRetourEffective = dateRetourEffective;
         this.status = status;
+        this.bookId = bookId;
+        this.userId = userId;
     }
 }

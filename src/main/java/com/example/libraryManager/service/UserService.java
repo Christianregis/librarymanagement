@@ -52,4 +52,5 @@ public class UserService {
     public UserDto findUserById(Long id){
         return Objects.requireNonNull(userRepository.findById(id).orElse(null)).toDto();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.libraryManager.model;
 
+import com.example.libraryManager.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,4 +28,8 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Emprunt> emprunts;
+
+    public UserDto toDto(){
+        return new UserDto(getName(), getPrenom(), getEmail(), getPassword(), getRole());
+    }
 }

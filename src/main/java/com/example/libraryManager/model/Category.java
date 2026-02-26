@@ -1,5 +1,6 @@
 package com.example.libraryManager.model;
 
+import com.example.libraryManager.dto.CategoryDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,8 @@ public class Category {
     private String name;
     @OneToMany(mappedBy = "category")
     private List<Book> books;
+
+    public CategoryDto toDto(){
+        return new CategoryDto(getName());
+    }
 }

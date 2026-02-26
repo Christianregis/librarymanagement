@@ -10,4 +10,11 @@ public class BookDto {
     private String auteur;
     private String isbn;
     private Long categoryId;
+
+    public BookDto(String title, String auteur, String isbn, Long categoryId) {
+        this.title = title;
+        this.auteur = auteur;
+        this.isbn = isbn;
+        this.categoryId = categoryId;
+    }
 }

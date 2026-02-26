@@ -1,5 +1,6 @@
 package com.example.libraryManager.service;
 
+import com.example.libraryManager.dto.CategoryDto;
 import com.example.libraryManager.model.Category;
 import com.example.libraryManager.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -12,15 +13,15 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category saveCategory(Category category){
-        return categoryRepository.save(category);
+    public CategoryDto saveCategory(Category category){
+        return categoryRepository.save(category).toDto();
     }
 
-    public Category updateCategory(Long id, Category newCategory){
+    public CategoryDto updateCategory(Long id, Category newCategory){
         Category category = categoryRepository.findById(id).orElse(null);
         if (category != null) {
             category.setName(newCategory.getName() != null ? newCategory.getName() : category.getName());
-            return categoryRepository.save(category);
+            return categoryRepository.save(category).toDto();
         }
         return null;
     }

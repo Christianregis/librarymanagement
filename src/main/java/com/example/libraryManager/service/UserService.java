@@ -1,8 +1,14 @@
 package com.example.libraryManager.service;
 
+import com.example.libraryManager.dto.UserDto;
 import com.example.libraryManager.model.User;
 import com.example.libraryManager.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -12,11 +18,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User saveUser(User user){
-        return userRepository.save(user);
+    public UserDto saveUser(User user){
+        return userRepository.save(user).toDto();
     }
 
-    public User updateUser(Long id, User newUser){
+    public UserDto updateUser(Long id, User newUser){
         User user = userRepository.findById(id).orElse(null);
         if(user != null){
             user.setName(newUser.getName() != null ? newUser.getName() : user.getName());
@@ -25,7 +31,7 @@ public class UserService {
             user.setPassword(newUser.getPassword() != null ? newUser.getPassword() : user.getPassword());
             user.setRole(user.getRole());
 
-            return userRepository.save(user);
+            return userRepository.save(user).toDto();
         }
         return null;
     }
@@ -37,5 +43,13 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public List<UserDto> getAllUser(){
+        return userRepository.findAll().stream().map(User::toDto).collect(Collectors.toList());
+    }
+
+    public UserDto findUserById(Long id){
+        return Objects.requireNonNull(userRepository.findById(id).orElse(null)).toDto();
     }
 }

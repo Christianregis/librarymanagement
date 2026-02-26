@@ -1,5 +1,6 @@
 package com.example.libraryManager.model;
 
+import com.example.libraryManager.dto.EmpruntDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,5 +30,9 @@ public class Emprunt {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public EmpruntDto toDto(){
+        return new EmpruntDto(getDateEmprunt(), getDateRetourPrevue(), getDateRetourEffective(), getStatus());
+    }
 
 }

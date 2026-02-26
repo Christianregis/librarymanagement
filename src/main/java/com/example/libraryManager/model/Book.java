@@ -1,5 +1,6 @@
 package com.example.libraryManager.model;
 
+import com.example.libraryManager.dto.BookDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -29,7 +30,7 @@ public class Book {
     @NotNull(message = "L'ISBN ne doit pas etre nulle !")
     @UniqueElements(message = "Cet ISBN est deja present pour un autre livre !")
     private String isbn;
-    private String status;
+    private String status = "DISPONIBLE";
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @JsonIgnore
@@ -40,4 +41,8 @@ public class Book {
     @JsonIgnore
     @OneToMany(mappedBy = "book")
     private List<Emprunt> emprunts;
+
+    public BookDto toDto(){
+        return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId());
+    }
 }

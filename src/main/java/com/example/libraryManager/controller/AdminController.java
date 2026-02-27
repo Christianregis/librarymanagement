@@ -51,6 +51,11 @@ public class AdminController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/users/count")
+    public ResponseEntity<Long> getUsersCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsersCount());
+    }
+
     // Gestion des categories
 
     @GetMapping("/categories")
@@ -78,6 +83,11 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.OK).body(List.of("success","Categorie supprimee !"));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/categories/count")
+    public ResponseEntity<Long> getCategoriesCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategoriesCount());
     }
 
     // Gestion des Livres
@@ -122,6 +132,11 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.CREATED).body(bookService.updateBook(id, book));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/books/count")
+    public ResponseEntity<Long> getBooksCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getBooksCount());
     }
 
     @DeleteMapping("/books/{id}")

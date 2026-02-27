@@ -45,6 +45,9 @@ public class CategoryService {
         ).collect(Collectors.toList());
     }
 
+    public long getCategoriesCount(){
+        return categoryRepository.count();
+    }
     public Optional<Category> getCategoryById(Long id){
         return categoryRepository.findById(id);
     }

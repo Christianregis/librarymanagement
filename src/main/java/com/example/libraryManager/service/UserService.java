@@ -53,4 +53,7 @@ public class UserService {
         return Objects.requireNonNull(userRepository.findById(id).orElse(null)).toDto();
     }
 
+    public long getUsersCount(){
+        return userRepository.count();
+    }
 }

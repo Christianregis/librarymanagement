@@ -56,5 +56,8 @@ public class BookService {
         return false;
     }
 
+    public long getBooksCount(){
+        return bookRepository.count();
+    }
     // Recherche de livres ici
 }

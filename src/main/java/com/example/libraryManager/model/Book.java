@@ -42,7 +42,7 @@ public class Book {
     private List<Emprunt> emprunts;
 
     public BookDto toDto(){
-        return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId(),getStatus());
+        return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId(),getStatus(),getId());
     }
 
     // Verification de la disponibilites du livre ( ca retourne true si cette expresioon est vrai et false sinon

@@ -20,6 +20,6 @@ public class Category {
     private List<Book> books;
 
     public CategoryDto toDto(){
-        return new CategoryDto(getName());
+        return new CategoryDto(getName(), getId());
     }
 }

@@ -32,7 +32,7 @@ public class Emprunt {
     private User user;
 
     public EmpruntDto toDto(){
-        return new EmpruntDto(getDateEmprunt(), getDateRetourPrevue(), getDateRetourEffective(), getStatus(), book.getId(), user.getId(), penalites);
+        return new EmpruntDto(getDateEmprunt(), getDateRetourPrevue(), getDateRetourEffective(), getStatus(), book.getId(), user.getId(), penalites, getId());
     }
 
 }

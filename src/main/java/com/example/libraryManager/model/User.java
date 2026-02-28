@@ -30,6 +30,6 @@ public class User {
     private List<Emprunt> emprunts;
 
     public UserDto toDto(){
-        return new UserDto(getName(), getPrenom(), getEmail(), getPassword(), getRole());
+        return new UserDto(getName(), getPrenom(), getEmail(), getPassword(), getRole(), getId());
     }
 }

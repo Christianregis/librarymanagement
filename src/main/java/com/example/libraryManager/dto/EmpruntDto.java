@@ -15,8 +15,9 @@ public class EmpruntDto {
     private Long bookId;
     private Long userId;
     private Double penalites;
+    private Long id;
 
-    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status, Long bookId, Long userId, Double penalites){
+    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status, Long bookId, Long userId, Double penalites, Long id){
         this.dateEmprunt = dateEmprunt;
         this.dateRetourPrevue = dateRetourPrevue;
         this.dateRetourEffective = dateRetourEffective;
@@ -24,5 +25,6 @@ public class EmpruntDto {
         this.bookId = bookId;
         this.userId = userId;
         this.penalites =penalites;
+        this.id = id;
     }
 }

@@ -33,6 +33,8 @@ public class MemberController {
         this.returnService = returnService;
     }
 
+    // Modification des informations du membre
+
     // Affichage du catalogue de produits
 
     @GetMapping("/books")

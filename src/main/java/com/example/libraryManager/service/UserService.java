@@ -1,13 +1,11 @@
 package com.example.libraryManager.service;
 
-import com.example.libraryManager.dto.UserDto;
 import com.example.libraryManager.model.User;
 import com.example.libraryManager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 @Service

@@ -14,13 +14,15 @@ public class EmpruntDto {
     private String status;
     private Long bookId;
     private Long userId;
+    private Double penalites;
 
-    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status, Long bookId, Long userId){
+    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status, Long bookId, Long userId, Double penalites){
         this.dateEmprunt = dateEmprunt;
         this.dateRetourPrevue = dateRetourPrevue;
         this.dateRetourEffective = dateRetourEffective;
         this.status = status;
         this.bookId = bookId;
         this.userId = userId;
+        this.penalites =penalites;
     }
 }

@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 
 @Setter
@@ -42,5 +43,10 @@ public class Book {
 
     public BookDto toDto(){
         return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId(),getStatus());
+    }
+
+    // Verification de la disponibilites du livre ( ca retourne true si cette expresioon est vrai et false sinon
+    public Boolean isAvailable(){
+        return Objects.equals(status, "DISPONIBLE");
     }
 }

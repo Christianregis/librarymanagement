@@ -17,15 +17,15 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryDto saveCategory(Category category){
-        return categoryRepository.save(category).toDto();
+    public Category saveCategory(Category category){
+        return categoryRepository.save(category);
     }
 
-    public CategoryDto updateCategory(Long id, Category newCategory){
+    public Category updateCategory(Long id, Category newCategory){
         Category category = categoryRepository.findById(id).orElse(null);
         if (category != null) {
             category.setName(newCategory.getName() != null ? newCategory.getName() : category.getName());
-            return categoryRepository.save(category).toDto();
+            return categoryRepository.save(category);
         }
         return null;
     }
@@ -39,10 +39,8 @@ public class CategoryService {
         return false;
     }
 
-    public List<CategoryDto> getAllCategories(){
-        return categoryRepository.findAll().stream().map(
-                Category::toDto
-        ).collect(Collectors.toList());
+    public List<Category> getAllCategories(){
+        return categoryRepository.findAll();
     }
 
     public long getCategoriesCount(){

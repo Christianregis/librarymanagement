@@ -18,11 +18,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDto saveUser(User user){
-        return userRepository.save(user).toDto();
+    public User saveUser(User user){
+        return userRepository.save(user);
     }
 
-    public UserDto updateUser(Long id, User newUser){
+    public User updateUser(Long id, User newUser){
         User user = userRepository.findById(id).orElse(null);
         if(user != null){
             user.setName(newUser.getName() != null ? newUser.getName() : user.getName());
@@ -31,7 +31,7 @@ public class UserService {
             user.setPassword(newUser.getPassword() != null ? newUser.getPassword() : user.getPassword());
             user.setRole(user.getRole());
 
-            return userRepository.save(user).toDto();
+            return userRepository.save(user);
         }
         return null;
     }
@@ -45,13 +45,14 @@ public class UserService {
         return false;
     }
 
-    public List<UserDto> getAllUser(){
-        return userRepository.findAll().stream().map(User::toDto).collect(Collectors.toList());
+    public List<User> getAllUser(){
+        return userRepository.findAll();
     }
 
-    public UserDto findUserById(Long id){
-        return Objects.requireNonNull(userRepository.findById(id).orElse(null)).toDto();
+    public User findUserById(Long id){
+        return Objects.requireNonNull(userRepository.findById(id).orElse(null));
     }
+
 
     public long getUsersCount(){
         return userRepository.count();

@@ -5,6 +5,7 @@ import com.example.libraryManager.dto.CategoryDto;
 import com.example.libraryManager.dto.UserDto;
 import com.example.libraryManager.model.Book;
 import com.example.libraryManager.model.Category;
+import com.example.libraryManager.model.User;
 import com.example.libraryManager.service.BookService;
 import com.example.libraryManager.service.CategoryService;
 import com.example.libraryManager.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -32,7 +34,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUser(){
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUser());
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUser().stream().map(User::toDto).collect(Collectors.toList()));
     }
 
     @DeleteMapping("/users/{id}")
@@ -46,7 +48,7 @@ public class AdminController {
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUserInformation(@PathVariable Long id){
         if (userService.findUserById(id) != null){
-            return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(id).toDto());
         }
         return ResponseEntity.notFound().build();
     }
@@ -60,21 +62,23 @@ public class AdminController {
 
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDto>> getAllCategories(){
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getAllCategories());
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getAllCategories().stream().map(
+                Category::toDto
+        ).collect(Collectors.toList()));
     }
 
     @PostMapping("/categories")
     public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto categoryDto){
         Category category = new Category();
         category.setName(categoryDto.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.saveCategory(category));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.saveCategory(category).toDto());
     }
 
     @PutMapping("/categories/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto){
         Category newCategory = new Category();
         newCategory.setName(categoryDto.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.updateCategory(id, newCategory));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.updateCategory(id, newCategory).toDto());
     }
 
     @DeleteMapping("/categories/{id}")
@@ -94,7 +98,7 @@ public class AdminController {
 
     @GetMapping("/books")
     public ResponseEntity<List<BookDto>> getAllBooks(){
-        return ResponseEntity.status(HttpStatus.OK).body(bookService.getAllBooks());
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getAllBooks().stream().map(Book::toDto).collect(Collectors.toList()));
     }
 
     @PostMapping("/books")
@@ -115,7 +119,7 @@ public class AdminController {
 
     @GetMapping("/books/{id}")
     public ResponseEntity<BookDto> getBookInformation(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(bookService.getBookInformation(id));
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getBookInformation(id).toDto());
     }
 
     @PutMapping("/books/{id}")
@@ -129,7 +133,7 @@ public class AdminController {
             book.setStatus(bookDto.getStatus());
 
             book.setCategory(category);
-            return ResponseEntity.status(HttpStatus.CREATED).body(bookService.updateBook(id, book));
+            return ResponseEntity.status(HttpStatus.CREATED).body(bookService.updateBook(id, book).toDto());
         }
         return ResponseEntity.notFound().build();
     }

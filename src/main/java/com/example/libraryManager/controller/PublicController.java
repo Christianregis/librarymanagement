@@ -28,6 +28,6 @@ public class PublicController {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(user).toDto());
     }
 }

@@ -8,6 +8,7 @@ import com.example.libraryManager.repository.EmpruntRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class EmpruntService {
@@ -31,5 +32,13 @@ public class EmpruntService {
         emprunt.setStatus("EN_COURS");
         book.setStatus("EMPRUNTE");
         return empruntRepository.save(emprunt);
+    }
+
+    public List<Emprunt> getAllEmprunts(){
+        return empruntRepository.searchEmpruntsByStatusContains("EN_COURS");
+    }
+
+    public Long getEmpruntCount(){
+        return (long) empruntRepository.searchEmpruntsByStatusContains("EN_COURS").size();
     }
 }

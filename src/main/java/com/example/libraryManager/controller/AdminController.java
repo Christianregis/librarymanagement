@@ -2,13 +2,13 @@ package com.example.libraryManager.controller;
 
 import com.example.libraryManager.dto.BookDto;
 import com.example.libraryManager.dto.CategoryDto;
+import com.example.libraryManager.dto.EmpruntDto;
 import com.example.libraryManager.dto.UserDto;
 import com.example.libraryManager.model.Book;
 import com.example.libraryManager.model.Category;
+import com.example.libraryManager.model.Emprunt;
 import com.example.libraryManager.model.User;
-import com.example.libraryManager.service.BookService;
-import com.example.libraryManager.service.CategoryService;
-import com.example.libraryManager.service.UserService;
+import com.example.libraryManager.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +23,15 @@ public class AdminController {
     private final UserService userService;
     private final CategoryService categoryService;
     private final BookService bookService;
+    private final EmpruntService empruntService;
+    private final ReturnService returnService;
 
-    public AdminController(UserService userService, CategoryService categoryService, BookService bookService) {
+    public AdminController(UserService userService, CategoryService categoryService, BookService bookService, EmpruntService empruntService, ReturnService returnService) {
         this.userService = userService;
         this.categoryService = categoryService;
         this.bookService = bookService;
+        this.empruntService = empruntService;
+        this.returnService = returnService;
     }
 
     // Gestion des utilisateurs
@@ -150,4 +154,27 @@ public class AdminController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    // Gestion des emprunts
+    @GetMapping("/emprunts/count")
+    public ResponseEntity<Long> getEmpruntCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(empruntService.getEmpruntCount());
+    }
+
+    @GetMapping("/emprunts/")
+    public ResponseEntity<List<EmpruntDto>> getAllEmprunts(){
+        return ResponseEntity.status(HttpStatus.OK).body(empruntService.getAllEmprunts().stream().map(Emprunt::toDto).collect(Collectors.toList()));
+    }
+
+    // Gestion des retours
+    @GetMapping("/returns/count")
+    public ResponseEntity<Long> getReturnsCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(returnService.getReturnsCount());
+    }
+
+    @GetMapping("/returns/")
+    public ResponseEntity<List<EmpruntDto>> getAllReturns(){
+        return ResponseEntity.status(HttpStatus.OK).body(returnService.getAllReturns().stream().map(Emprunt::toDto).collect(Collectors.toList()));
+    }
+
 }

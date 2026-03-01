@@ -1,12 +1,14 @@
 package com.example.libraryManager.service;
 
 
+import com.example.libraryManager.model.Book;
 import com.example.libraryManager.model.Emprunt;
 import com.example.libraryManager.repository.EmpruntRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class ReturnService {
@@ -40,5 +42,13 @@ public class ReturnService {
             return (retard-14) * 500;
         }
         return 0.0;
+    }
+
+    public List<Emprunt> getAllReturns(){
+        return empruntRepository.searchEmpruntsByDateRetourEffectiveIsNullOrStatusEquals("TERMINE");
+    }
+
+    public Long getReturnsCount(){
+        return (long) empruntRepository.searchEmpruntsByDateRetourEffectiveIsNullOrStatusEquals("TERMINE").size();
     }
 }

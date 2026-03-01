@@ -1,19 +1,25 @@
 package com.example.libraryManager.model;
 
 import com.example.libraryManager.dto.UserDto;
+import com.example.libraryManager.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.jspecify.annotations.NullMarked;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 
 @Entity(name = "users")
 @Getter
 @Setter
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +28,8 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private LocalDate dateInscription = LocalDate.now();
 
     @JsonIgnore
@@ -30,6 +37,41 @@ public class User {
     private List<Emprunt> emprunts;
 
     public UserDto toDto(){
-        return new UserDto(getName(), getPrenom(), getEmail(), getPassword(), getRole(), getId());
+        return new UserDto(getName(), getPrenom(), getEmail(), getPassword(), getId(), getRole().name());
+    }
+
+    @Override
+    @NullMarked
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" +role.name()));
+    }
+
+    @Override
+    @NullMarked
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    @NullMarked
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @NullMarked
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @NullMarked
+    public boolean isEnabled() {
+        return true;
     }
 }

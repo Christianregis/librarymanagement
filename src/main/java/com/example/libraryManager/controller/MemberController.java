@@ -3,6 +3,7 @@ package com.example.libraryManager.controller;
 import com.example.libraryManager.dto.BookDto;
 import com.example.libraryManager.dto.CategoryDto;
 import com.example.libraryManager.dto.EmpruntDto;
+import com.example.libraryManager.dto.UserDto;
 import com.example.libraryManager.model.Book;
 import com.example.libraryManager.model.Category;
 import com.example.libraryManager.model.Emprunt;
@@ -10,6 +11,7 @@ import com.example.libraryManager.model.User;
 import com.example.libraryManager.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +35,13 @@ public class MemberController {
         this.returnService = returnService;
     }
 
-    // Modification des informations du membre
+    // Affichage des informations du membre
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getCurrentUser(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        assert user != null;
+        return ResponseEntity.status(HttpStatus.OK).body(user.toDto());
+    }
 
     // Affichage du catalogue de produits
 

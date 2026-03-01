@@ -13,12 +13,13 @@ public class UserDto {
     private String password;
     private String role;
 
-    public UserDto(String name, String prenom, String email, String password, String role, Long id) {
+
+    public UserDto(String name, String prenom, String email, String password, Long id, String role) {
         this.name = name;
         this.prenom = prenom;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.id = id;
+        this.role = role;
     }
 }

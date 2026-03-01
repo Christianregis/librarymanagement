@@ -11,6 +11,7 @@ import com.example.libraryManager.model.User;
 import com.example.libraryManager.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,14 @@ public class AdminController {
         this.bookService = bookService;
         this.empruntService = empruntService;
         this.returnService = returnService;
+    }
+
+    // Affichage des informations de l'adminstrateur
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getCurrentUser(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        assert user != null;
+        return ResponseEntity.status(HttpStatus.OK).body(user.toDto());
     }
 
     // Gestion des utilisateurs

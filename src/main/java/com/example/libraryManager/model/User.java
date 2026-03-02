@@ -34,7 +34,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<Emprunt> emprunts;
+    private List<Borrow> borrows;
 
     public UserDto toDto(){
         return new UserDto(getName(), getPrenom(), getEmail(), getPassword(), getId(), getRole().name());
@@ -65,6 +65,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @NullMarked
     public boolean isCredentialsNonExpired() {
         return true;
     }

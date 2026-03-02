@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class EmpruntDto {
+public class BorrowDto {
     private LocalDate dateEmprunt;
     private LocalDate dateRetourPrevue;
     private LocalDate dateRetourEffective;
@@ -17,7 +17,7 @@ public class EmpruntDto {
     private Double penalites;
     private Long id;
 
-    public EmpruntDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective,String status, Long bookId, Long userId, Double penalites, Long id){
+    public BorrowDto(LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective, String status, Long bookId, Long userId, Double penalites, Long id){
         this.dateEmprunt = dateEmprunt;
         this.dateRetourPrevue = dateRetourPrevue;
         this.dateRetourEffective = dateRetourEffective;

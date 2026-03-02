@@ -2,11 +2,11 @@ package com.example.libraryManager.controller;
 
 import com.example.libraryManager.dto.BookDto;
 import com.example.libraryManager.dto.CategoryDto;
-import com.example.libraryManager.dto.EmpruntDto;
+import com.example.libraryManager.dto.BorrowDto;
 import com.example.libraryManager.dto.UserDto;
 import com.example.libraryManager.model.Book;
+import com.example.libraryManager.model.Borrow;
 import com.example.libraryManager.model.Category;
-import com.example.libraryManager.model.Emprunt;
 import com.example.libraryManager.model.User;
 import com.example.libraryManager.service.*;
 import org.springframework.http.HttpStatus;
@@ -24,14 +24,14 @@ public class MemberController {
     private final BookService bookService;
     private final CategoryService categoryService;
     private final UserService userService;
-    private final EmpruntService empruntService;
+    private final BorrowService borrowService;
     private final ReturnService returnService;
 
-    public MemberController(BookService bookService, CategoryService categoryService, UserService userService, EmpruntService empruntService, ReturnService returnService) {
+    public MemberController(BookService bookService, CategoryService categoryService, UserService userService, BorrowService borrowService, ReturnService returnService) {
         this.bookService = bookService;
         this.categoryService = categoryService;
         this.userService = userService;
-        this.empruntService = empruntService;
+        this.borrowService = borrowService;
         this.returnService = returnService;
     }
 
@@ -69,6 +69,8 @@ public class MemberController {
         return ResponseEntity.notFound().build();
     }
 
+
+
     // Affichage de l'ensemble des categories
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDto>> getAllCategories(){
@@ -80,18 +82,23 @@ public class MemberController {
     // Gestion des emprunts et retours
 
     @PostMapping("/books/borrowBook/{userId}/{bookId}")
-    public ResponseEntity<EmpruntDto> borrowBook(@PathVariable Long bookId, @PathVariable Long userId){
+    public ResponseEntity<BorrowDto> borrowBook(@PathVariable Long bookId, @PathVariable Long userId){
         User user = userService.findUserById(userId);
         Book book = bookService.findBookById(bookId);
         if (user != null && book != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(empruntService.borrowBook(book, user).toDto());
+            return ResponseEntity.status(HttpStatus.CREATED).body(borrowService.borrowBook(book, user).toDto());
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/books/return/{borrowId}")
-    public ResponseEntity<EmpruntDto>  returnBook(@PathVariable Long borrowId){
-        Emprunt emprunt = returnService.returnBook(borrowId);
-        return ResponseEntity.status(HttpStatus.OK).body(emprunt.toDto());
+    public ResponseEntity<BorrowDto>  returnBook(@PathVariable Long borrowId){
+        Borrow borrow = returnService.returnBook(borrowId);
+        return ResponseEntity.status(HttpStatus.OK).body(borrow.toDto());
+    }
+
+    @PostMapping("/books/borrow/book/addTime/{borrowId}/{days}")
+    public ResponseEntity<BorrowDto> addTimeToBorrow(@PathVariable Long borrowId, @PathVariable Integer days){
+        return ResponseEntity.status(HttpStatus.CREATED).body(returnService.addTimeToBorrow(borrowId, days).toDto());
     }
 }

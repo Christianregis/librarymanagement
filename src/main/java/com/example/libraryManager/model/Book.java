@@ -3,12 +3,10 @@ package com.example.libraryManager.model;
 import com.example.libraryManager.dto.BookDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,7 +37,7 @@ public class Book {
 
     @JsonIgnore
     @OneToMany(mappedBy = "book")
-    private List<Emprunt> emprunts;
+    private List<Borrow> borrows;
 
     public BookDto toDto(){
         return new BookDto(getTitle(), getAuteur(), getIsbn(), category.getId(),getStatus(),getId());

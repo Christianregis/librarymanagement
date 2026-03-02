@@ -1,6 +1,6 @@
 package com.example.libraryManager.model;
 
-import com.example.libraryManager.dto.EmpruntDto;
+import com.example.libraryManager.dto.BorrowDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Entity(name = "loans")
 @Getter
 @Setter
-public class Emprunt {
+public class Borrow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +31,8 @@ public class Emprunt {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public EmpruntDto toDto(){
-        return new EmpruntDto(getDateEmprunt(), getDateRetourPrevue(), getDateRetourEffective(), getStatus(), book.getId(), user.getId(), penalites, getId());
+    public BorrowDto toDto(){
+        return new BorrowDto(getDateEmprunt(), getDateRetourPrevue(), getDateRetourEffective(), getStatus(), book.getId(), user.getId(), penalites, getId());
     }
 
 }
